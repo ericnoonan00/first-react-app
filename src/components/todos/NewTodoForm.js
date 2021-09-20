@@ -1,4 +1,6 @@
 import { useRef } from "react";
+import classes from './NewTodoForm.module.css';
+
 const NewTodoForm = (props) => {
 
 	const titleInputRef = useRef();
@@ -20,13 +22,13 @@ const NewTodoForm = (props) => {
 	}
 
 	return (
-		<div>
-			<form onSubmit={submitHandler}>
-				<label htmlFor="">Title</label>
-				<input id="title" type="text" ref={titleInputRef} required />
-				<button>Add Todo</button>
+		<section className={classes.formSection}>
+			<form onSubmit={submitHandler} className={classes.formContent}>
+				<label htmlFor="" className={classes.formLabel}>Title</label>
+				<input id="title" type="text" ref={titleInputRef} required className={classes.formInput} />
+				<button className={classes.formSubmit}>Add Todo</button>
 			</form>
-		</div>
+		</section>
 	);
 };
 

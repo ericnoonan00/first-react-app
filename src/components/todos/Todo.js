@@ -15,15 +15,6 @@ const Todo = (props) => {
 				return repsonse.json();
 			})
 			.then((data) => {
-				//CREATES AN ARRAY OF DATA INSTEAD OF JUST AN OBJECT
-				// const todos = [];
-				// for (const key in data) {
-				// 	const todo = {
-				// 		id: key,
-				// 		...data[key],
-				// 	};
-				// 	todos.push(todo);
-				//
 				setLoadedData(data);
 			});
 	}, []);
@@ -48,21 +39,25 @@ const Todo = (props) => {
 		const valueID = getIDviaTitle(loadedData, props.title);
 
 		fetch(
-			`https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json/${valueID}`,
+			//'https://first-react-project-371a6-default-rtdb.firebaseio.com/todos/-MjvO01hTlExBvU_L1ou',
+			`https://first-react-project-371a6-default-rtdb.firebaseio.com/todos/${valueID}`,
 			{
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/text",
+					"Allow": "GET, POST, DELETE",
 				},
-				mode: "no-cors",
+				mode: "cors",
+				origin: "http://localhost:3000/"
 			}
 		)
 			.then((response) => {
 				if (!response.ok) throw new Error();
-				return response.json();
+				else return response.json();
 			})
 			.then((data) => {
 				console.log("deleted");
+				setModalIsOpen(false);
 			})
 			.catch((err) => {
 				console.error(err);
