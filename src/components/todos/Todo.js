@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
 import Modal from "../ui/Modal";
 import Backdrop from "../ui/Backdrop";
@@ -6,6 +7,7 @@ import Backdrop from "../ui/Backdrop";
 const Todo = (props) => {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [loadedData, setLoadedData] = useState([]);
+	const hist = useHistory();
 
 	useEffect(() => {
 		fetch(
@@ -26,6 +28,7 @@ const Todo = (props) => {
 			var value = obj[key];
 			// console.table(value);
 			if (props.title === value.title) {
+				console.log(key);
 				return key;
 			}
 		}
@@ -39,28 +42,39 @@ const Todo = (props) => {
 		const valueID = getIDviaTitle(loadedData, props.title);
 
 		fetch(
-			//'https://first-react-project-371a6-default-rtdb.firebaseio.com/todos/-MjvO01hTlExBvU_L1ou',
-			`https://first-react-project-371a6-default-rtdb.firebaseio.com/todos/${valueID}`,
-			{
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/text",
-					"Allow": "GET, POST, DELETE",
-				},
-				mode: "cors",
-				origin: "http://localhost:3000/"
-			}
+			"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json"
 		)
 			.then((response) => {
-				if (!response.ok) throw new Error();
-				else return response.json();
+				return response.json();
 			})
 			.then((data) => {
-				console.log("deleted");
-				setModalIsOpen(false);
-			})
-			.catch((err) => {
-				console.error(err);
+				setLoadedData(data);
+				delete loadedData[valueID];
+
+				fetch(
+					"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json",
+					{
+						method: "DELETE",
+					}
+				).then(() => {
+					for (const key in loadedData) {
+						// console.log(JSON.stringify(loadedData[key]));
+
+						fetch(
+							"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json",
+							{
+								method: "POST",
+								body: JSON.stringify(loadedData[key]),
+								header: {
+									"Content-Type": "application/text",
+								},
+							}
+						).then(() => {
+							hist.replace('/');
+							setModalIsOpen(false);
+						});
+					}
+				});
 			});
 	};
 
