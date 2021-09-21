@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 
 import Modal from "../ui/Modal";
 import Backdrop from "../ui/Backdrop";
@@ -7,7 +7,7 @@ import Backdrop from "../ui/Backdrop";
 const Todo = (props) => {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [loadedData, setLoadedData] = useState([]);
-	const hist = useHistory();
+	// const hist = useHistory();
 
 	useEffect(() => {
 		fetch(
@@ -70,7 +70,7 @@ const Todo = (props) => {
 								},
 							}
 						).then(() => {
-							hist.replace('/');
+							window.location.reload(true);
 							setModalIsOpen(false);
 						});
 					}
