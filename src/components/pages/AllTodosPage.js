@@ -1,5 +1,6 @@
 import TodoList from "../todos/TodoList";
 import { useState, useEffect } from "react";
+import classes from './AllTodosPage.module.css'
 
 const AllTodosPage = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -34,8 +35,8 @@ const AllTodosPage = (props) => {
 		);
 	}
 	return (
-		<div>
-			<h1>To Do list</h1>
+		<div className={classes.AllTodosDiv}>
+			<h1 className={classes.pageTitle}>To Do list</h1>
 			<TodoList todos={loadedData} />
 		</div>
 	);
