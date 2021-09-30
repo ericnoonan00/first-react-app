@@ -1,0 +1,40 @@
+.modal {
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	background-color: white;
+	padding: 1rem;
+	text-align: center;
+	width: 30rem;
+	z-index: 10;
+	position: fixed;
+	top: 20vh;
+	left: calc(50% - 15rem);
+}
+
+.modalText {
+  font-size: 1.2rem;
+  margin: 1rem;
+}
+
+.modalBtn {
+  width: 150px;
+  height: 2rem;
+  margin: auto 1.5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: white;
+}
+.cancel:hover {
+  background-color: hsl(34, 78%, 95%);
+}
+
+.confirm {
+  background-color: #800040;
+  color: white;
+}
+.confirm:hover {
+  background-color: #600020;
+}

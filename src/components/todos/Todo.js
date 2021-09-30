@@ -5,9 +5,10 @@ import Modal from "../ui/Modal";
 import Backdrop from "../ui/Backdrop";
 
 const Todo = (props) => {
+	const databaseURL =
+		"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json";
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [loadedData, setLoadedData] = useState([]);
-	// const hist = useHistory();
 
 	useEffect(() => {
 		fetch(
@@ -22,13 +23,10 @@ const Todo = (props) => {
 	}, []);
 
 	const getIDviaTitle = (obj, titleQuery) => {
-		// console.log(obj)
-
 		for (const key in obj) {
 			var value = obj[key];
-			// console.table(value);
 			if (props.title === value.title) {
-				console.log(key);
+				// console.log(key);
 				return key;
 			}
 		}
@@ -38,44 +36,36 @@ const Todo = (props) => {
 		setModalIsOpen(true);
 	};
 
-	const deleteTodoHandler = () => {
+	const deleteTodoHandler = async () => {
+		/**************************
+		 * 1. loadedData is already set to the whole DB
+		 * 2. delete the prop that you want to delete
+		 * 3. post the entire database back to firebase
+		 **************************/
 		const valueID = getIDviaTitle(loadedData, props.title);
 
-		fetch(
-			"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json"
-		)
-			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				setLoadedData(data);
-				delete loadedData[valueID];
+		await delete loadedData[valueID];
+		await deleteWholeDB();
+		await postWholeDB(loadedData);
+		await window.location.reload();
+		
+	};
 
-				fetch(
-					"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json",
-					{
-						method: "DELETE",
-					}
-				).then(() => {
-					for (const key in loadedData) {
-						// console.log(JSON.stringify(loadedData[key]));
+	const deleteWholeDB = async () =>
+		await fetch(databaseURL, {
+			method: "DELETE",
+		});
 
-						fetch(
-							"https://first-react-project-371a6-default-rtdb.firebaseio.com/todos.json",
-							{
-								method: "POST",
-								body: JSON.stringify(loadedData[key]),
-								header: {
-									"Content-Type": "application/text",
-								},
-							}
-						).then(() => {
-							window.location.reload(true);
-							setModalIsOpen(false);
-						});
-					}
-				});
+	const postWholeDB = async (LD) => {
+		for (const key in LD) {
+			await fetch(databaseURL, {
+				method: "POST",
+				body: JSON.stringify(LD[key]),
+				header: {
+					"Content-Type": "application/text",
+				},
 			});
+		}
 	};
 
 	const closeModalHandler = () => {

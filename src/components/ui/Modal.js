@@ -1,3 +1,5 @@
+import classes from './Modal.module.css';
+
 const Modal = (props) => {
 	const cancelHandler = () => {
 		props.onCancel();
@@ -7,12 +9,18 @@ const Modal = (props) => {
 	};
 
 	return (
-		<div className="modal">
-			<p>Are You Sure?</p>
-			<button className="btn btn--alt" onClick={cancelHandler}>
+		<div className={classes.modal}>
+			<p className={classes.modalText}>Are You Sure?</p>
+			<button
+				className={[classes.cancel, classes.modalBtn].join(" ")}
+				onClick={cancelHandler}
+			>
 				Cancel
 			</button>
-			<button className="btn" onClick={confirmHandler}>
+			<button
+				className={[classes.confirm, classes.modalBtn].join(" ")}
+				onClick={confirmHandler}
+			>
 				Confirm
 			</button>
 		</div>
