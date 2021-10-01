@@ -36,15 +36,16 @@ const Todo = (props) => {
 		setModalIsOpen(true);
 	};
 
+	/**************************
+	 * 1. loadedData is already set to the whole DB
+	 * 2. delete the prop that you want to delete
+	 * 3. delete the whole database
+	 * 4. post the entire database back to firebase
+	 **************************/
 	const deleteTodoHandler = async () => {
-		/**************************
-		 * 1. loadedData is already set to the whole DB
-		 * 2. delete the prop that you want to delete
-		 * 3. post the entire database back to firebase
-		 **************************/
 		const valueID = getIDviaTitle(loadedData, props.title);
 
-		await delete loadedData[valueID];
+		delete loadedData[valueID];
 		await deleteWholeDB();
 		await postWholeDB(loadedData);
 		await window.location.reload();
