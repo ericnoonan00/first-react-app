@@ -23,5 +23,20 @@
 }
 
 .navLink {
+  padding: .8rem 1rem;
+  border-radius: 999px;
   margin: 1rem;
+  box-shadow: 0px 0px 0 rgb(0 0 0 / .4);
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 500ms ease;
+}
+
+.navLink:hover {
+  background-color: #800040;
+  box-shadow: 5px 5px 0 rgb(0 0 0 /.4);
+  transition: all 500ms ease;
+  
+
 }

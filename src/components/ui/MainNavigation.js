@@ -10,12 +10,18 @@ const MainNavigation = () => {
 			<nav className={classes.nav}>
 				<ul className={classes.navList}>
 					<li>
-						<Link to="/" className={classes.navLink}>
+						<Link
+							to="/"
+							className={[classes.navLink, "btn"].join(" ")}
+						>
 							All Todos
 						</Link>
 					</li>
 					<li>
-						<Link to="/new-todo" className={classes.navLink}>
+						<Link
+							to="/new-todo"
+							className={[classes.navLink, "btn"].join(" ")}
+						>
 							New Todo
 						</Link>
 					</li>
