@@ -4,8 +4,6 @@ import HamburgerMenu from "./HamburgerMenu";
 
 const MainNavigation = () => {
 
-
-
 	const hamburgerHelper = () => {
 		const NL = document.getElementsByTagName("ul").item(0);
 		if (NL.style.display === 'flex') NL.style.display = "none";
