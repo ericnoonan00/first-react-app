@@ -24,7 +24,7 @@ const NewTodoForm = (props) => {
 	return (
 		<section className={classes.formSection}>
 			<form onSubmit={submitHandler} className={classes.formContent}>
-				<label htmlFor="" className={classes.formLabel}>Title</label>
+				<label htmlFor="title" className={classes.formLabel}>Title</label>
 				<input id="title" type="text" ref={titleInputRef} required className={classes.formInput} />
 				<button className={classes.formSubmit}>Add Todo</button>
 			</form>
